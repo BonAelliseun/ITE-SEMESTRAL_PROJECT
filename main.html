@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 5 - Engineering Prototype</title>
+    <style>
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4; /* Light Silver/Grey */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- COLOR PALETTE --- */
+        :root {
+            --gold: #D4AF37;
+            --gold-dark: #AA8C2C;
+            --silver: #C0C0C0;
+            --silver-light: #E5E4E2;
+            --dark-grey: #2C2C2C;
+            --red-accent: #800000; /* BatStateU Red Hint */
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(135deg, var(--dark-grey), #000);
+            color: white;
+            padding: 1rem 5%;
+            border-bottom: 4px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--silver);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--silver);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('IMG20251215180557.jpg'); /* Using one of your images as BG */
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .hero span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            color: var(--silver-light);
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background-color: var(--gold);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background-color: var(--gold-dark);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 60px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--dark-grey);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin: 10px auto 0;
+        }
+
+        /* --- PROBLEM & SOLUTION (Card Style) --- */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--silver);
+            border-top: 5px solid var(--gold);
+            padding: 30px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--dark-grey);
+            margin-bottom: 15px;
+        }
+
+        /* --- GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--silver);
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- TEAM SECTION --- */
+        .team-section {
+            background-color: var(--dark-grey);
+            color: white;
+        }
+
+        .team-section .section-title {
+            color: var(--gold);
+        }
+
+        .team-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .team-member {
+            background: #444;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+        }
+
+        .team-member h4 {
+            color: var(--silver-light);
+            margin-bottom: 5px;
+        }
+        
+        .team-member p {
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: black;
+            color: var(--silver);
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">BatStateU <span>Group 5</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#needs">The Need</a></li>
+                <li><a href="#prototype">Prototype</a></li>
+                <li><a href="#team">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Innovation for <span>Livable Communities</span></h1>
+        <p>Designing solutions to address poorly maintained surroundings and improve human well-being.</p>
+        <a href="#prototype" class="btn">View Prototype</a>
+    </section>
+
+    <section id="needs">
+        <h2 class="section-title">The Design Challenge</h2>
+        <div class="container">
+            <div class="card">
+                <h3>The Problem</h3>
+                <p>Through our Empathize stage, we identified that communities are suffering from poorly maintained surroundings. This negatively affects safety and health, creating a need for a solution that goes beyond just physical structures.</p>
+            </div>
+            <div class="card">
+                <h3>Our Needs Statement</h3>
+                <p><em>"To create safer, healthier, and more livable communities by directly addressing the challenges people face every day due to environmental neglect."</em></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="prototype" style="background-color: #e8e8e8;">
+        <h2 class="section-title">The Prototype</h2>
+        <p style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Our proposed solution combines engineering principles with empathy. Below is our physical prototype demonstrating the design concept.
+        </p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="IMG20251215180557.jpg" alt="Prototype View 1">
+            </div>
+            <div class="gallery-item">
+                <img src="IMG20251215182542.jpg" alt="Prototype View 2">
+            </div>
+            <div class="gallery-item">
+                <img src="IMG20251215182546.jpg" alt="Prototype View 3">
+            </div>
+            <div class="gallery-item">
+                <img src="IMG20251215182552.jpg" alt="Prototype View 4">
+            </div>
+            <div class="gallery-item">
+                <img src="IMG20251215182604.jpg" alt="Prototype View 5">
+            </div>
+            <div class="gallery-item">
+                <img src="IMG20251215180548.jpg" alt="Prototype View 6">
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team-section">
+        <h2 class="section-title">The Team</h2>
+        <ul class="team-list">
+            <li class="team-member">
+                <h4>Bunyi, Feliz Welliene Rose D.</h4>
+                <p>Group Member</p>
+            </li>
+            <li class="team-member">
+                <h4>Dalangin, John Andrew V.</h4>
+                <p>Group Member</p>
+            </li>
+            <li class="team-member">
+                <h4>Layug, Luisa Angela M.</h4>
+                <p>Group Member</p>
+            </li>
+            <li class="team-member">
+                <h4>Manguerra, Vhonne Allyson C.</h4>
+                <p>Group Member</p>
+            </li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Batangas State University - The National Engineering University</p>
+        <p>College of Engineering - Department of Electrical Engineering</p>
+        <p>&copy; 2025 CPE-1101 Group 5. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
