@@ -342,7 +342,7 @@
                 <li><a href="#shop">Shop</a></li>
                 <li><a href="#team">Team</a></li>
             </ul>
-            <div class="cart-icon" onclick="alert('Cart is currently empty!')">
+            <div class="cart-icon"">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-badge" id="cart-badge">0</span>
             </div>
@@ -392,18 +392,18 @@
         </div>
         <div class="product-details">
             <h2 style="color: var(--dark-grey); margin-bottom: 10px;">Sani-Scan Bot Model X1</h2>
-            <p>The ultimate solution for automated community hygiene. Designed by BatStateU Group 5 Engineering.</p>
+            <p>The ultimate solution for automated community hygiene. Designed by BatStateU Sani-Scan Bot Team Engineering.</p>
             
             <ul style="margin: 20px 0 20px 20px; color: #555;">
-                <li>HEPA Filter System</li>
-                <li>Dual-Scrub Brushes</li>
+                <li>Air Filter System</li>
+                <li>Dual high torque scrubbers</li>
                 <li>Wi-Fi App Connectivity</li>
                 <li>Long-lasting Battery</li>
             </ul>
 
-            <div class="price">₱ 4,999.00 <span style="font-size: 1rem; color: #999; font-weight: normal;">(Prototype Price)</span></div>
+            <div class="price">₱ x,xxx.xx <span style="font-size: 1rem; color: #999; font-weight: normal;">(Prototype Price)</span></div>
 
-            <button class="add-to-cart-btn" onclick="addToCart()">
+            <button class="add-to-cart-btn">
                 <i class="fas fa-cart-plus"></i> Add to Cart
             </button>
         </div>
@@ -453,16 +453,6 @@
         <p>&copy; 2025 Sani-Scan Bot Team. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        let cartCount = 0;
-
-        function addToCart() {
-            cartCount++;
-            const badge = document.getElementById('cart-badge');
-            badge.innerText = cartCount;
-            badge.style.display = 'block';
-            alert("Sani-Scan Bot added to your cart!");
-        }
-    </script>
 </body>
 </html>
+
