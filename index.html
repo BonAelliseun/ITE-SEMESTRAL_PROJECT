@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group 5 - Engineering Prototype</title>
+    <title>Sani-Scan Bot - Group 5</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* --- RESET & BASIC SETUP --- */
         * {
@@ -26,10 +27,10 @@
             --silver: #C0C0C0;
             --silver-light: #E5E4E2;
             --dark-grey: #2C2C2C;
-            --red-accent: #800000; /* BatStateU Red Hint */
+            --text-dark: #1a1a1a;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER & CART --- */
         header {
             background: linear-gradient(135deg, var(--dark-grey), #000);
             color: white;
@@ -38,18 +39,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--gold);
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .logo span {
             color: var(--silver);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
         nav ul {
@@ -69,12 +80,31 @@
             color: var(--gold);
         }
 
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            display: none; /* Hidden until item added */
+        }
+
         /* --- HERO SECTION --- */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('IMG20251215180557.jpg'); /* Using one of your images as BG */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('IMG20251215180557.jpg'); 
             background-size: cover;
             background-position: center;
-            height: 80vh;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -85,50 +115,50 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: var(--gold);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
-        .hero span {
-            color: var(--gold);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            color: var(--silver-light);
-            margin-bottom: 30px;
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--silver);
+            margin-bottom: 25px;
+            font-weight: 300;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 15px 40px;
             background-color: var(--gold);
-            color: white;
+            color: var(--text-dark);
             border: none;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: transform 0.2s, background 0.3s;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
 
         .btn:hover {
-            background-color: var(--gold-dark);
+            background-color: white;
+            transform: translateY(-3px);
         }
 
         /* --- SECTIONS --- */
         section {
-            padding: 60px 5%;
+            padding: 70px 5%;
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             color: var(--dark-grey);
             position: relative;
+            text-transform: uppercase;
         }
 
         .section-title::after {
@@ -137,33 +167,96 @@
             width: 80px;
             height: 4px;
             background: var(--gold);
-            margin: 10px auto 0;
+            margin: 15px auto 0;
         }
 
-        /* --- PROBLEM & SOLUTION (Card Style) --- */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        /* --- FEATURES (FUNCTIONS) --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
-        .card {
+        .feature-card {
             background: white;
-            border: 1px solid var(--silver);
-            border-top: 5px solid var(--gold);
             padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-bottom: 4px solid var(--silver);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-bottom-color: var(--gold);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-grey);
+        }
+
+        /* --- SHOPPING SECTION --- */
+        .shop-section {
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .product-image {
             flex: 1;
             min-width: 300px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
         }
 
-        .card h3 {
-            color: var(--dark-grey);
-            margin-bottom: 15px;
+        .product-image img {
+            width: 100%;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        /* --- GALLERY GRID --- */
+        .product-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: var(--gold-dark);
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--dark-grey);
+            color: var(--gold);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: 2px solid var(--gold);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--gold);
+            color: white;
+        }
+
+        /* --- GALLERY --- */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -171,10 +264,9 @@
         }
 
         .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--silver);
             height: 250px;
+            border: 1px solid var(--silver);
+            overflow: hidden;
         }
 
         .gallery-item img {
@@ -188,7 +280,7 @@
             transform: scale(1.1);
         }
 
-        /* --- TEAM SECTION --- */
+        /* --- TEAM --- */
         .team-section {
             background-color: var(--dark-grey);
             color: white;
@@ -200,29 +292,32 @@
 
         .team-list {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 20px;
             list-style: none;
         }
 
         .team-member {
-            background: #444;
-            padding: 20px;
+            background: #333;
+            padding: 25px;
             width: 250px;
             text-align: center;
             border-radius: 8px;
             border: 1px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .team-member h4 {
-            color: var(--silver-light);
+            color: white;
             margin-bottom: 5px;
+            font-size: 1.1rem;
         }
-        
+
         .team-member p {
-            font-size: 0.9rem;
             color: var(--gold);
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
         /* --- FOOTER --- */
@@ -230,7 +325,7 @@
             background: black;
             color: var(--silver);
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             border-top: 2px solid var(--gold);
         }
     </style>
@@ -238,62 +333,91 @@
 <body>
 
     <header>
-        <div class="logo">BatStateU <span>Group 5</span></div>
+        <div class="logo">Sani-Scan <span>Bot</span></div>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#needs">The Need</a></li>
-                <li><a href="#prototype">Prototype</a></li>
+                <li><a href="#features">Functions</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#shop">Shop</a></li>
                 <li><a href="#team">Team</a></li>
             </ul>
+            <div class="cart-icon" onclick="alert('Cart is currently empty!')">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </div>
         </nav>
     </header>
 
     <section id="home" class="hero">
-        <h1>Innovation for <span>Livable Communities</span></h1>
-        <p>Designing solutions to address poorly maintained surroundings and improve human well-being.</p>
-        <a href="#prototype" class="btn">View Prototype</a>
+        <h1>Sani-Scan Bot</h1>
+        <h2>Purify, Sanitize, and Protect Your Community.</h2>
+        <a href="#shop" class="btn">Pre-Order Now</a>
     </section>
 
-    <section id="needs">
-        <h2 class="section-title">The Design Challenge</h2>
-        <div class="container">
-            <div class="card">
-                <h3>The Problem</h3>
-                <p>Through our Empathize stage, we identified that communities are suffering from poorly maintained surroundings. This negatively affects safety and health, creating a need for a solution that goes beyond just physical structures.</p>
+    <section id="features">
+        <h2 class="section-title">Key Functions</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-wind"></i></div>
+                <h3>Purifies Air</h3>
+                <p>Cleans indoor air and adds a pleasant fragrance, ensuring a healthier breathing environment.</p>
             </div>
-            <div class="card">
-                <h3>Our Needs Statement</h3>
-                <p><em>"To create safer, healthier, and more livable communities by directly addressing the challenges people face every day due to environmental neglect."</em></p>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-broom"></i></div>
+                <h3>Sanitizes Floors</h3>
+                <p>Scrubs and removes dirt and grime effectively, leaving surfaces spotless and safe.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                <h3>Detects Dirt</h3>
+                <p>Smart sensors find dirty areas automatically and navigate around obstacles with ease.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                <h3>Automatic Cleaning</h3>
+                <p>Operates autonomously without supervision, saving you time and effort.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Manual Control</h3>
+                <p>Full control at your fingertips. Operate the robot manually via the dedicated mobile app.</p>
             </div>
         </div>
     </section>
 
-    <section id="prototype" style="background-color: #e8e8e8;">
-        <h2 class="section-title">The Prototype</h2>
-        <p style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
-            Our proposed solution combines engineering principles with empathy. Below is our physical prototype demonstrating the design concept.
-        </p>
-        
+    <section id="shop" class="shop-section">
+        <div class="product-image">
+            <img src="IMG20251215182542.jpg" alt="Sani-Scan Bot Product View">
+        </div>
+        <div class="product-details">
+            <h2 style="color: var(--dark-grey); margin-bottom: 10px;">Sani-Scan Bot Model X1</h2>
+            <p>The ultimate solution for automated community hygiene. Designed by BatStateU Group 5 Engineering.</p>
+            
+            <ul style="margin: 20px 0 20px 20px; color: #555;">
+                <li>HEPA Filter System</li>
+                <li>Dual-Scrub Brushes</li>
+                <li>Wi-Fi App Connectivity</li>
+                <li>Long-lasting Battery</li>
+            </ul>
+
+            <div class="price">₱ 4,999.00 <span style="font-size: 1rem; color: #999; font-weight: normal;">(Prototype Price)</span></div>
+
+            <button class="add-to-cart-btn" onclick="addToCart()">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+        </div>
+    </section>
+
+    <section id="gallery" style="background-color: #e8e8e8;">
+        <h2 class="section-title">Prototype Gallery</h2>
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="IMG20251215180557.jpg" alt="Prototype View 1">
-            </div>
-            <div class="gallery-item">
-                <img src="IMG20251215182542.jpg" alt="Prototype View 2">
-            </div>
-            <div class="gallery-item">
-                <img src="IMG20251215182546.jpg" alt="Prototype View 3">
-            </div>
-            <div class="gallery-item">
-                <img src="IMG20251215182552.jpg" alt="Prototype View 4">
-            </div>
-            <div class="gallery-item">
-                <img src="IMG20251215182604.jpg" alt="Prototype View 5">
-            </div>
-            <div class="gallery-item">
-                <img src="IMG20251215180548.jpg" alt="Prototype View 6">
-            </div>
+            <div class="gallery-item"><img src="IMG20251215180557.jpg" alt="View 1"></div>
+            <div class="gallery-item"><img src="IMG20251215182542.jpg" alt="View 2"></div>
+            <div class="gallery-item"><img src="IMG20251215182546.jpg" alt="View 3"></div>
+            <div class="gallery-item"><img src="IMG20251215182552.jpg" alt="View 4"></div>
+            <div class="gallery-item"><img src="IMG20251215182604.jpg" alt="View 5"></div>
+            <div class="gallery-item"><img src="IMG20251215180548.jpg" alt="View 6"></div>
         </div>
     </section>
 
@@ -316,14 +440,29 @@
                 <h4>Manguerra, Vhonne Allyson C.</h4>
                 <p>Group Member</p>
             </li>
+            <li class="team-member" style="border-color: white;">
+                <h4>Mendoza, John Lewis J.</h4>
+                <p>Group Member</p>
+            </li>
         </ul>
     </section>
 
     <footer>
         <p>Batangas State University - The National Engineering University</p>
         <p>College of Engineering - Department of Electrical Engineering</p>
-        <p>&copy; 2025 CPE-1101 Group 5. All Rights Reserved.</p>
+        <p>&copy; 2025 Sani-Scan Bot Team. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        let cartCount = 0;
+
+        function addToCart() {
+            cartCount++;
+            const badge = document.getElementById('cart-badge');
+            badge.innerText = cartCount;
+            badge.style.display = 'block';
+            alert("Sani-Scan Bot added to your cart!");
+        }
+    </script>
 </body>
 </html>
